@@ -2,8 +2,10 @@ package org.example.map;
 
 import org.example.methods.JsonMerger;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 public class MappingFaculty {
 
@@ -20,7 +22,6 @@ public class MappingFaculty {
     public void setMapData() {
         String directory = "jsons";
         JsonMerger jsonMerger = new JsonMerger();
-        this.mapData = jsonMerger.mergeJsonFilesToMap(directory);
     }
 
     public static void main(String[] args) {

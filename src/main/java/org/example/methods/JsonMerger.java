@@ -9,21 +9,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class JsonMerger {
 
-    public static Map<String, Object> mergeJsonFilesToMap(String folder) {
+    public static Map<String, List<String>> mergeJsonFilesToMap(String folder) {
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> finalMap = new HashMap<>();
+        Map<String, List<String>> graph = new HashMap<>();
 
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             var dirURL = classLoader.getResource(folder);
 
             if (dirURL == null) {
-                throw new IOException("Папка не найдена: " + folder);
+                throw new IOException("Folder not found: " + folder);
             }
 
             Path dirPath = Paths.get(dirURL.toURI());
@@ -33,22 +34,38 @@ public class JsonMerger {
                         .filter(p -> p.toString().endsWith(".json"))
                         .forEach(path -> {
                             try {
-                                Map<String, Object> currentMap = mapper.readValue(
-                                        path.toFile(),
-                                        new TypeReference<Map<String, Object>>() {}
-                                );
-                                finalMap.putAll(currentMap);
 
-                            } catch (IOException e) {
-                                System.err.println("Ошибка при чтении файла " + path.getFileName());
+                                // исходный вид JSON
+                                Map<String, Map<String, Map<String, String>>> fileData =
+                                        mapper.readValue(path.toFile(),
+                                                new TypeReference<>() {});
+
+                                // раскладываем в граф
+                                for (var block : fileData.values()) {
+                                    for (var node : block.entrySet()) {
+                                        String from = node.getKey();
+
+                                        // соседи – ключи вложенной карты
+                                        List<String> neighbors =
+                                                new ArrayList<>(node.getValue().keySet());
+
+                                        graph.merge(from, neighbors, (oldV, newV) -> {
+                                            oldV.addAll(newV);
+                                            return oldV;
+                                        });
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                                System.err.println("Error reading " + path.getFileName());
+                                e.printStackTrace();
                             }
                         });
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return finalMap;
+        return graph;
     }
 }
