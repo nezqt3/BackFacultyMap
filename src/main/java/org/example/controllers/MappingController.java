@@ -18,7 +18,7 @@ public class MappingController {
         this.mappingFacultyPath = mappingFacultyPath;
     }
 
-    @GetMapping("/route")
+    @GetMapping("/api/route")
     public Map<String, Object> getRoute(
             @RequestParam(name = "from", required = false) String from,
             @RequestParam(name = "to", required = false) String to,
@@ -38,7 +38,9 @@ public class MappingController {
     }
 
     @GetMapping("/")
-    public String home() {
-        return "Hello, Spring Boot server is running!";
+    public Map<String, String> home() {
+        Map<String, String> data = new HashMap<>();
+        data.put("response", "base response REST API");
+        return data;
     }
 }
