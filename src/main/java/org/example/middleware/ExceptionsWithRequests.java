@@ -12,7 +12,7 @@ public class ExceptionsWithRequests {
     @ExceptionHandler(NotEnoughArguments.class)
     public ResponseEntity<String> handleNotEnoughArguments(NotEnoughArguments ex) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST) // 409
+                .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
     }
 
