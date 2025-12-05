@@ -59,11 +59,4 @@ public class BreadthFirstSearch {
         return path;
     }
 
-    public static void main(String[] args) {
-        BreadthFirstSearch bfs = new BreadthFirstSearch();
-        List<String> path = bfs.bfs("3510", "1104");
-
-        System.out.println("Кратчайший путь:");
-        System.out.println(path);
-    }
 }

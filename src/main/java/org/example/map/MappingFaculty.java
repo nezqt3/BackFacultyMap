@@ -1,34 +1,11 @@
 package org.example.map;
 
-import org.example.methods.JsonMerger;
-
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import org.example.methods.BreadthFirstSearch;
+import java.util.List;
 
 public class MappingFaculty {
-
-    private Map<String, Object> mapData = new HashMap<>();
-
-    public void searchPathBetweenPoints() {
-        return;
-    }
-
-    public Map<String, Object> getMapData() {
-        return this.mapData;
-    }
-
-    public void setMapData() {
-        String directory = "jsons";
-        JsonMerger jsonMerger = new JsonMerger();
-    }
-
-    public static void main(String[] args) {
-        MappingFaculty mappingFaculty = new MappingFaculty();
-        mappingFaculty.setMapData();
-
-        System.out.println(mappingFaculty.getMapData());
-
+    public List<String> searchPathBetweenPoints(String from, String to) {
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        return bfs.bfs(from, to);
     }
 }
