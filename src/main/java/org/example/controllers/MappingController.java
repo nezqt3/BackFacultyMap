@@ -22,7 +22,8 @@ public class MappingController {
     public Map<String, Object> getRoute(
             @RequestParam(name = "from", required = false) String from,
             @RequestParam(name = "to", required = false) String to,
-            @RequestParam(name ="study_place", required = false) String studyPlace) {
+            @RequestParam(name ="study_place", required = false) String studyPlace
+    ) {
 
         if (from == null || to == null || studyPlace == null) {
             throw new NotEnoughArguments(from, to, studyPlace);
@@ -34,6 +35,19 @@ public class MappingController {
         result.put("study_place", studyPlace);
 
         result.put("path", this.mappingFacultyPath.getPath(from, to));
+        return result;
+    }
+
+    @GetMapping("/api/get_auditoriums")
+    public Map<String, Object> getAuditoriums(
+            @RequestParam(name = "floor", required = false) int floor,
+            @RequestParam(name ="study_place", required = false) String studyPlace
+    ) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("floor", floor);
+        result.put("study_place", studyPlace);
+
+        result.put("auditoriums", this.mappingFacultyPath.getAuditoriums(floor));
         return result;
     }
 

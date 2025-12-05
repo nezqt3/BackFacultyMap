@@ -13,4 +13,9 @@ public class MappingFacultyPath {
         return mappingFaculty.searchPathBetweenPoints(from, to);
     }
 
+    public List<String> getAuditoriums(int floor) {
+        MappingFaculty mappingFaculty = new MappingFaculty();
+        return mappingFaculty.outputFloorAuditorium(floor);
+    }
+
 }
