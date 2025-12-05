@@ -1,4 +1,4 @@
-package org.example.services;
+package org.example.services.cache;
 
 import org.example.cache.MessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package org.example.services;
+package org.example.services.cache;
 
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;

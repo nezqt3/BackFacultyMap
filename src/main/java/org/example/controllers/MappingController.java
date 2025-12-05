@@ -1,7 +1,7 @@
 package org.example.controllers;
 
 import org.example.middleware.exceptions.NotEnoughArguments;
-import org.example.services.MappingFacultyPath;
+import org.example.services.api.MappingFacultyPath;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

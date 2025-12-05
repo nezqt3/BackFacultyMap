@@ -1,4 +1,4 @@
-package org.example.services;
+package org.example.services.api;
 
 import org.example.map.MappingFaculty;
 import org.springframework.stereotype.Service;
