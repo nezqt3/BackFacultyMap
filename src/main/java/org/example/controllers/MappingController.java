@@ -38,8 +38,8 @@ public class MappingController {
         return result;
     }
 
-    @GetMapping("/api/get_auditoriums")
-    public Map<String, Object> getAuditoriums(
+    @GetMapping("/api/get_auditoriums/floors")
+    public Map<String, Object> getFloorAuditoriums(
             @RequestParam(name = "floor", required = false) int floor,
             @RequestParam(name ="study_place", required = false) String studyPlace
     ) {
@@ -47,7 +47,20 @@ public class MappingController {
         result.put("floor", floor);
         result.put("study_place", studyPlace);
 
-        result.put("auditoriums", this.mappingFacultyPath.getAuditoriums(floor));
+        result.put("auditoriums", this.mappingFacultyPath.getFloorAuditoriums(floor));
+        return result;
+    }
+
+    @GetMapping("/api/get_auditoriums/frames")
+    public Map<String, Object> getFrameAuditoriums(
+            @RequestParam(name = "frame", required = false) int frame,
+            @RequestParam(name ="study_place", required = false) String studyPlace
+    ) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("frame", frame);
+        result.put("study_place", studyPlace);
+
+        result.put("auditoriums", this.mappingFacultyPath.getFrameAuditoriums(frame));
         return result;
     }
 

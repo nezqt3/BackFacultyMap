@@ -23,4 +23,14 @@ public class MappingFaculty {
                 .map(Map.Entry::getKey)
                 .toList();
     }
+
+    public List<String> outputFrameAuditorium(int frame) {
+        Map<String, List<String>> cabinets = JsonMerger.mergeJsonFilesToMap("jsons");
+
+        return cabinets.entrySet().stream()
+                .filter(entry -> entry.getKey().length() > 1)
+                .filter(entry -> entry.getKey().startsWith(Integer.toString(frame)))
+                .map(Map.Entry::getKey)
+                .toList();
+    }
 }
