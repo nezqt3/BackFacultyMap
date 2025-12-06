@@ -10,7 +10,7 @@ public class BreadthFirstSearch {
     private Map<String, String> parent = new HashMap<>();
 
     public BreadthFirstSearch() {
-        this.graph = JsonMerger.mergeJsonFilesToMap("jsons");
+//        this.graph = JsonMerger.mergeJsonFilesByFloor("jsons");
     }
 
     public List<String> bfs(String start, String end) {

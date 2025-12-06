@@ -1,0 +1,15 @@
+{
+  "floors": [
+    "floor1.json",
+    "floor2.json",
+    "floor3.json",
+    "floor4.json",
+    "floor5.json",
+    "floor6.json",
+    "floor7.json",
+    "floor8.json",
+    "floor9.json"
+  ],
+  "width": 1000,
+  "height": 600
+}
