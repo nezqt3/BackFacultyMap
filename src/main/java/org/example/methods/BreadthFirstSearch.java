@@ -1,5 +1,7 @@
 package org.example.methods;
 
+import org.example.data.FloorData;
+
 import java.util.*;
 
 public class BreadthFirstSearch {
@@ -10,11 +12,37 @@ public class BreadthFirstSearch {
     private Map<String, String> parent = new HashMap<>();
 
     public BreadthFirstSearch() {
-//        this.graph = JsonMerger.mergeJsonFilesByFloor("jsons");
+        this.graph = buildGraph(JsonMerger.mergeJsonFilesByFloor("json_full_data"));
+    }
+
+    public Map<String, List<String>> buildGraph(Map<String, FloorData> data) {
+        Map<String, List<String>> graph = new HashMap<>();
+
+        for (var floor : data.entrySet()) {
+            for (Map<String, Object> edge : floor.getValue().edges) {
+                String from = edge.get("from").toString();
+                String to = edge.get("to").toString();
+
+                graph.computeIfAbsent(from, k -> new ArrayList<>()).add(to);
+
+                graph.computeIfAbsent(to, k -> new ArrayList<>()).add(from);
+            }
+        }
+
+        return graph;
     }
 
     public List<String> bfs(String start, String end) {
+        used.clear();
+        distance.clear();
+        parent.clear();
+
         Queue<String> queue = new ArrayDeque<>();
+
+        if (!graph.containsKey(start)) {
+            System.out.println("Стартовой вершины нет в графе!");
+            return List.of();
+        }
 
         queue.add(start);
         used.put(start, true);
@@ -28,11 +56,9 @@ public class BreadthFirstSearch {
 
             for (String to : graph.getOrDefault(v, List.of())) {
                 if (!used.getOrDefault(to, false)) {
-
                     used.put(to, true);
                     distance.put(to, distance.get(v) + 1);
                     parent.put(to, v);
-
                     queue.add(to);
                 }
             }

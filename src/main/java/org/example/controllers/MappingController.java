@@ -22,7 +22,7 @@ public class MappingController {
     public Map<String, Object> getRoute(
             @RequestParam(name = "from", required = false) String from,
             @RequestParam(name = "to", required = false) String to,
-            @RequestParam(name ="study_place", required = false) String studyPlace
+            @RequestParam(name = "study_place", required = false) String studyPlace
     ) {
 
         if (from == null || to == null || studyPlace == null) {
@@ -41,7 +41,7 @@ public class MappingController {
     @GetMapping("/api/get_auditoriums/floors")
     public Map<String, Object> getFloorAuditoriums(
             @RequestParam(name = "floor", required = false) int floor,
-            @RequestParam(name ="study_place", required = false) String studyPlace
+            @RequestParam(name = "study_place", required = false) String studyPlace
     ) {
         Map<String, Object> result = new HashMap<>();
         result.put("floor", floor);
@@ -54,7 +54,7 @@ public class MappingController {
     @GetMapping("/api/get_auditoriums/frames")
     public Map<String, Object> getFrameAuditoriums(
             @RequestParam(name = "frame", required = false) int frame,
-            @RequestParam(name ="study_place", required = false) String studyPlace
+            @RequestParam(name = "study_place", required = false) String studyPlace
     ) {
         Map<String, Object> result = new HashMap<>();
         result.put("frame", frame);
@@ -65,9 +65,10 @@ public class MappingController {
     }
 
     @GetMapping("/")
-    public Map<String, String> home() {
-        Map<String, String> data = new HashMap<>();
-        data.put("response", "base response REST API");
+    public Map<String, Object> home() {
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("data", this.mappingFacultyPath.getAllData());
         return data;
     }
 }

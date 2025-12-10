@@ -29,7 +29,7 @@ public class JsonMerger {
 
             try (Stream<Path> paths = Files.walk(dirPath)) {
                 paths.filter(Files::isRegularFile)
-                        .filter(p -> p.toString().endsWith(".json"))
+                        .filter(p -> p.toString().endsWith(".json") && p.toString().contains("floor"))
                         .forEach(path -> {
                             try {
                                 Map<String, Object> fileData = mapper.readValue(path.toFile(),
@@ -100,16 +100,5 @@ public class JsonMerger {
         }
 
         return floorsMap;
-    }
-
-    public static void main(String[] args) {
-        Map<String, FloorData> result = mergeJsonFilesByFloor("json_full_data");
-
-        result.forEach((floor, data) -> {
-            System.out.println("Этаж: " + floor);
-            System.out.println("  width: " + data.width + ", height: " + data.height);
-            System.out.println("  nodes: " + data.nodes);
-            System.out.println("  edges: " + data.edges);
-        });
     }
 }
