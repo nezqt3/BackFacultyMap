@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class MappingFacultyPath {
 
-    public List<String> getPath(String from, String to) {
+    public List<Map<String, Map<String, Object>>> getPath(String from, String to) {
         MappingFaculty mappingFaculty = new MappingFaculty();
         return mappingFaculty.searchPathBetweenPoints(from, to);
     }

@@ -13,9 +13,33 @@ public class MappingFaculty {
 
     private Map<String, List<String>> cabinets = new HashMap<>();
 
-    public List<String> searchPathBetweenPoints(String from, String to) {
+    public List<Map<String, Map<String, Object>>> searchPathBetweenPoints(String from, String to) {
+        Map<String, FloorData> cabinets = JsonMerger.mergeJsonFilesByFloor("json_full_data");
+        fillCabinetsList(cabinets);
+
         BreadthFirstSearch bfs = new BreadthFirstSearch();
-        return bfs.bfs(from, to);
+        List<String> path = bfs.bfs(from, to);
+
+        List<Map<String, Map<String, Object>>> result = new ArrayList<>();
+
+        Map<String, Map<String, Object>> allNodes = new HashMap<>();
+        for (FloorData floorData : cabinets.values()) {
+            for (Map<String, Object> node : floorData.nodes) {
+                String id = node.get("id").toString();
+                allNodes.put(id, node);
+            }
+        }
+
+        for (String part : path) {
+            Map<String, Object> data = allNodes.get(part);
+            if (data != null) {
+                Map<String, Map<String, Object>> wrapper = new HashMap<>();
+                wrapper.put(part, data);
+                result.add(wrapper);
+            }
+        }
+
+        return result;
     }
 
     public void fillCabinetsList(Map<String, FloorData> cabinets) {
